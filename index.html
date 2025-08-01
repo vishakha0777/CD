@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Birthday Countdown</title>
+<style>
+ body {
+background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  color: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.count {
+  background: #fff;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+#countdown {
+  display:flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.count {
+  background: #fff;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.images img {
+  width: 100px;
+  margin: 10px;
+  border-radius: 10px;
+}
+  .heart {
+  position: fixed; /* so it's above everything */
+  z-index: 9999;   /* ensures it's on top */
+  animation: float 4s linear forwards;
+  font-size: 24px;
+  pointer-events: none;
+}
+    
+  @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+    }
+</style>
+</head>
+<body>
+  <div class="container">
+      <h2 style="margin-top: 30px; font-size: 24px; color: #fff;">🎂 Countdown to Your Special Day 🎉</h2>
+    <div id="countdown">
+      <!-- Countdown values will be inserted here -->
+    </div>
+    <p style="font-size: 18px; color: #eee; margin-top: 10px;">
+Only a little while left until we celebrate YOU! 💕
+</p>
+    
+    <div class="images">
+      <img src="cute1.gif" alt="cute gif 1">
+      <img src="cute2.gif" alt="cute gif 2">
+      <img src="cute3.gif" alt="cute gif 3">
+    </div>
+  </div>
+  <script>
+    const targetDate = new Date("2025-08-16T00:00:00").getTime();
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+  const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30)) % 12;
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24)) % 30;
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / 1000 / 60) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML = `
+    <div class="count">${years} Years</div>
+    <div class="count">${months} Months</div>
+    <div class="count">${days} Days</div>
+    <div class="count">${hours} Hours</div>
+    <div class="count">${minutes} Minutes</div>
+    <div class="count">${seconds} Seconds</div>
+  `;
+}
+
+setInterval(updateCountdown, 1000);
+
+function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100vh";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+
+    setInterval(createHeart, 800); // Create a new heart every 800ms
+
+  </script>
+</body>
+</html>
