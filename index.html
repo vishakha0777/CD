@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TimeSpan for Your Day!</title>
+<style>
+body{
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  color: black;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+.count {
+  background: #fff;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+#countdown {
+  display:flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.images img {
+  width: 100px;
+  margin: 10px;
+  border-radius: 10px;
+}
+  .heart {
+  position: fixed; /* so it's above everything */
+  z-index: 9999;   /* ensures it's on top */
+  animation: float 4s linear forwards;
+  font-size: 24px;
+  pointer-events: none;
+}
+    
+  @keyframes float {
+      0% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+    }
+  .hearts-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.heart {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: url('https://i.imgur.com/8K5gTHr.png') no-repeat center;
+  background-size: contain;
+  animation: float 10s infinite ease-in-out;
+}
+
+.heart:nth-child(1) { left: 20%; animation-delay: 0s; }
+.heart:nth-child(2) { left: 40%; animation-delay: 2s; }
+.heart:nth-child(3) { left: 60%; animation-delay: 4s; }
+.heart:nth-child(4) { left: 80%; animation-delay: 1s; }
+.heart:nth-child(5) { left: 30%; animation-delay: 3s; }
+
+@keyframes float {
+  0% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards;
+  color: #fff;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.pre-greeting {
+  font-size: 18px;
+  color: #ff69b4;
+  animation: fadeInGlow 2s ease-in-out infinite alternate;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeInGlow {
+  0% {opacity: 0.6; text-shadow: 0 0 5px #fff;}
+  100% {opacity: 1; text-shadow: 0 0 15px #ffb6c1;}
+}
+.floating-hearts-top::before,
+.floating-hearts-top::after {
+  content: "💖";
+  position: fixed;
+  top: -20px;
+  font-size: 20px;
+  animation: fall 8s linear infinite;
+  opacity: 0.7;
+}
+
+.floating-hearts-top::after {
+  left: 60%;
+  animation-delay: 3s;
+}
+
+.floating-hearts-top::before {
+  left: 30%;
+  animation-delay: 0.1s;
+}
+.heart1::before { left: 10%; animation-delay: 0s; }
+.heart2::before { left: 50%; animation-delay: 2s; }
+.heart3::before { left: 80%; animation-delay: 4s; }
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(120vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+.note-text {
+  color: #fff0f5; /* Light lavender-pink */
+  font-size: 1.2rem;
+  text-align: center;
+  font-style: italic;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', cursive;
+}
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="fade-in" style="text-shadow: 1px 1px 4px rgba(0,0,0,0.3);">👑 Countdown to Your Special Day✨</h1>
+
+    <div class="floating-hearts-top">
+      
+    </div>
+
+    <div id="countdown">
+      <!-- Countdown values will be inserted here -->
+    </div>
+<p class="note-text">
+  Only a little while left until we celebrate 
+  <span style="color: #ff69b4;">YOU 💕</span>
+</p>
+    
+    <div class="images">
+      <img src="cute1.gif" alt="cute gif 1">
+      <img src="cute2.gif" alt="cute gif 2">
+      <img src="cute3.gif" alt="cute gif 3">
+    </div>
+  <p class="note-text">
+  A little <span style="color:#ff69b4;">surprise</span> is coming your way... 💖
+</p>
+
+  </div>
+  <div class="hearts-bg">
+  <span class="heart"></span>
+  <span class="heart"></span>
+  <span class="heart"></span>
+  <span class="heart"></span>
+  <span class="heart"></span>
+  <span class="heart"></span>
+</div>
+  <script>
+    const targetDate = new Date("2025-08-16T00:00:00").getTime();
+
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+
+  if (distance <= 0) {
+  clearInterval(countdownInterval);
+
+  document.getElementById("countdown").innerHTML = `
+    <div style="
+      position: fixed; 
+      top: 50%; 
+      left: 25%; 
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: linear-gradient(135deg, #ffdde1, #ffc4d6);
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      animation: fadeInUp 1s forwards;
+    ">
+      <h2 style="
+        color:#ff4f81; 
+        text-shadow: 1px 1px 4px rgba(255,255,255,0.7);
+        font-size: 2rem;
+        margin-bottom: 10px;
+        border-radius: 10px;
+      ">
+        🎉Janmadin Mubarak Shaikh Sahab😚💖
+      </h2>
+      <p style="
+        font-size: 1.2rem; 
+        color: #8b005d;
+        font-weight: 500;
+      ">
+        Mera Ashirwad Humesha tumhare Sath hai!!🤭😁
+      </p>
+    </div>
+  `;
+    return;
+  }
+
+  const years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+  const months = Math.floor(distance / (1000 * 60 * 60 * 24 * 30)) % 12;
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24)) % 30;
+  const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((distance / 1000 / 60) % 60);
+  const seconds = Math.floor((distance / 1000) % 60);
+
+  document.getElementById("countdown").innerHTML = `
+    <div class="count">${years} Years</div>
+    <div class="count">${months} Months</div>
+    <div class="count">${days} Days</div>
+    <div class="count">${hours} Hours</div>
+    <div class="count">${minutes} Minutes</div>
+    <div class="count">${seconds} Seconds</div>
+  `;
+}
+function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.textContent = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "100vh";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 10000);
+    }
+
+    setInterval(createHeart, 200); 
+
+  </script>
+</body>
+</html>
